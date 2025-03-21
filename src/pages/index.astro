@@ -1,0 +1,232 @@
+---
+import { getMenus, getBlogs } from "../library/microcms";
+import Layout from '../layouts/Layout.astro';
+import TopKV from '../components/Top/TopKV.astro';
+import TopConcept from '../components/Top/TopConcept.astro';
+import TopAbout from '../components/Top/TopAbout.astro';
+import TopMenu from '../components/Menu/TopMenu.astro';
+import TopBlog from '../components/Blog/TopBlog.astro';
+import TopAccess from '../components/Top/TopAccess.astro';
+import TopFAQ from '../components/Top/TopFAQ.astro';
+import Contact from '../components/Contact.astro';
+
+// データ取得
+const responseMenu = await getMenus({ fields: ["menu_name", "menu_time", "menu_price", "menu_lead"] });
+const responseBlog = await getBlogs({ fields: ["id", "title", "publishedAt", "description"] });
+
+// 構造化データ生成関数
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "埼玉県羽生市の腸律セラピー・アロマ・よもぎ蒸し｜mahana",
+  "description": "腸から美しく整え、心と身体のバランスを整える癒しの時間をご提供。",
+  "hasPart": [
+    {
+      "@type": "Organization",
+      "name": "mahana",
+      "url": "https://www.mahana.example",
+      "logo": "https://www.mahana.example/assets/images/global/logo-black@2x.webp",
+      "description": "mahanaは、タヒチ語で「太陽」、ハワイ語で「休息」「暖かい」を意味し、埼玉県羽生市にあるプライベートサロンです。心と体の癒しを提供し、お客様の笑顔を取り戻すサポートをします。",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "埼玉県羽生市下新田19-1",
+        "postalCode": "348-0048",
+        "addressLocality": "羽生市",
+        "addressRegion": "埼玉県",
+        "country": "日本"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+81-123-456-7890",
+        "contactType": "Customer Service",
+        "areaServed": "JP",
+        "availableLanguage": "ja"
+      },
+      "sameAs": [
+        "https://www.facebook.com/mahana",
+        "https://www.instagram.com/mahana"
+      ],
+      "priceRange": "¥",
+      "openingHours": "火曜日 9:30-16:30, 木曜日 9:30-16:30, 土曜日 9:30-16:30",
+      "paymentAccepted": "現金, クレジットカード（Visa, JCB, etc.）",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://www.mahana.example/offers",
+        "priceCurrency": "JPY",
+        "price": "料金は要確認"
+      }
+    },
+    {
+      "@type": "OfferCatalog",
+      "name": "メニュー",
+      "itemListElement": responseMenu.contents.map(menu => ({
+        "@type": "Offer",
+        "name": menu.menu_name,
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": menu.menu_price,
+          "priceCurrency": "JPY"
+        }
+      }))
+    },
+    {
+      "@type": "BlogPosting",
+      "name": "ブログ",
+      "articleBody": responseBlog.contents.map(blog => ({
+        "@type": "BlogPosting",
+        "headline": blog.title,
+        "datePublished": blog.publishedAt,
+        "description": blog.description
+      }))
+    },
+    {
+      "@type": "FAQPage",
+      "name": "よくあるご質問",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "腸律の施術時はどのような服装ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ご来店時の服装のまま施術させていただきます。ショーツも含めボトムスは腰骨まで下げ、トップスは助骨が見えるところまで上げていただきます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "腸律の施術はお腹を見られてしまうのですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "直接お腹を見ること、触ることはありません。タオル越しに施術を行いますのでご安心ください。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "腸律の施術は痛くないですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "痛みはほとんどありません。リラックスできる優しい施術です。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "トイレはありますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "トイレ付きのコンテナハウスサロンですのでご安心ください。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "サロンへのアクセス方法を教えてください",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "駐車場をご準備しておりますので、お車でお越しください。電車の場合は最寄り駅から徒歩約20～35分です。"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "headline": "About",
+      "author": {
+        "@type": "Person",
+        "name": "澤出 由香莉",
+        "jobTitle": "サロンオーナー",
+        "affiliation": "mahana",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "mahana"
+        }
+      },
+      "description": "mahanaでは、お客様の心と体を癒すことを目指し、腸律セラピーやオーガニック製品を使用しています。日常から解放される癒しのひとときを提供します。",
+      "datePublished": "2025-03-11",
+      "image": "/assets/images/about/pic-about-treatment-table-pc@2x.webp",
+      "publisher": {
+        "@type": "Organization",
+        "name": "mahana"
+      }
+    },
+    {
+      "@type": "Place",
+      "name": "mahana サロン",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "埼玉県羽生市下新田19-1",
+        "postalCode": "348-0048",
+        "addressLocality": "羽生市",
+        "addressRegion": "埼玉県",
+        "country": "日本"
+      },
+      "telephone": "+81-123-456-7890",
+      "url": "https://www.mahana.example/access",
+      "image": "/assets/images/global/pic-access-pc@2x.webp",
+      "openingHours": "火曜日 9:30-16:30, 木曜日 9:30-16:30, 土曜日 9:30-16:30"
+    },
+    {
+      "@type": "CreativeWork",
+      "headline": "Concept",
+      "description": "mahanaのコンセプトは、ココロとカラダが健康であれば自然に笑顔になり、美しくなれることです。腸からのケアで本来の自分らしい毎日を取り戻し、癒しと美を提供します。",
+      "image": [
+        "/assets/images/concept/pic-concept-thumbnail01@2x.webp",
+        "/assets/images/concept/pic-concept-thumbnail02@2x.webp",
+        "/assets/images/concept/pic-concept-thumbnail03@2x.webp",
+        "/assets/images/concept/pic-concept-thumbnail04@2x.webp",
+        "/assets/images/concept/pic-concept-thumbnail05@2x.webp"
+      ]
+    },
+    {
+      "@type": "VideoObject",
+      "name": "サロン紹介",
+      "description": "mahanaサロンの紹介ビデオです。",
+      "contentUrl": "https://www.mahana.example/video"
+    }
+  ]
+});
+---
+
+<!-- top -->
+<Layout
+  subTitle="トップページ"
+  ogType="website"
+  description="埼玉県羽生市のプライベートサロン「mahana」では、薬剤師オーナーが腸律セラピー・アロマトリートメント・よもぎ蒸し・フェイシャルエステをご提供。腸から美しく整え、心と身体のバランスを整える癒しの時間をお届けします。"
+  jsonLd={jsonLd}
+>
+  <!-- top-kv -->
+  <div class="top-kv">
+    <TopKV />
+  </div><!-- /.top-kv -->
+
+  <main>
+    <!-- top-concept -->
+    <section class="top-concept">
+      <TopConcept />
+    </section><!-- /.top-concept -->
+
+    <!-- top-about -->
+    <section class="top-about">
+      <TopAbout />
+    </section><!-- /.top-about -->
+
+    <!-- top-menu -->
+    <section class="top-menu">
+      <TopMenu />
+    </section><!-- /.top-menu -->
+
+    <!-- top-blog -->
+    <section class="top-blog">
+      <TopBlog />
+    </section><!-- /.top-blog -->
+
+    <!-- top-access -->
+    <section class="top-access">
+      <TopAccess />
+    </section><!-- /.top-access -->
+
+    <!-- top-faq -->
+    <section class="top-faq">
+      <TopFAQ />
+    </section><!-- /.top-faq -->
+
+    <Contact />
+  </main>
+</Layout>

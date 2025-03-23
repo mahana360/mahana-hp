@@ -20,12 +20,12 @@ const jsonLd = JSON.stringify({
   "@type": "WebPage",
   "name": "埼玉県羽生市の腸律セラピー・アロマ・よもぎ蒸し｜mahana",
   "description": "腸から美しく整え、心と身体のバランスを整える癒しの時間をご提供。",
-  "hasPart": [
+  "mainEntity": [
     {
       "@type": "Organization",
       "name": "mahana",
-      "url": "https://www.mahana.example",
-      "logo": "https://www.mahana.example/assets/images/global/logo-black@2x.webp",
+      "url": "https://mahana-organic.com",
+      "logo": "https://mahana-organic.com/assets/images/global/logo-black@2x.webp",
       "description": "mahanaは、タヒチ語で「太陽」、ハワイ語で「休息」「暖かい」を意味し、埼玉県羽生市にあるプライベートサロンです。心と体の癒しを提供し、お客様の笑顔を取り戻すサポートをします。",
       "address": {
         "@type": "PostalAddress",
@@ -37,23 +37,22 @@ const jsonLd = JSON.stringify({
       },
       "contactPoint": {
         "@type": "ContactPoint",
-        "telephone": "+81-123-456-7890",
         "contactType": "Customer Service",
         "areaServed": "JP",
         "availableLanguage": "ja"
       },
       "sameAs": [
-        "https://www.facebook.com/mahana",
-        "https://www.instagram.com/mahana"
+        "https://lin.ee/PElklbk",
+        "https://www.instagram.com/mahana_organic360/"
       ],
       "priceRange": "¥",
       "openingHours": "火曜日 9:30-16:30, 木曜日 9:30-16:30, 土曜日 9:30-16:30",
       "paymentAccepted": "現金, クレジットカード（Visa, JCB, etc.）",
       "offers": {
         "@type": "Offer",
-        "url": "https://www.mahana.example/offers",
+        "url": "https://mahana-organic.com/menu",
         "priceCurrency": "JPY",
-        "price": "料金は要確認"
+        "price": "料金は要確認（詳細はメニュー詳細ページでご確認ください）",
       }
     },
     {
@@ -127,7 +126,7 @@ const jsonLd = JSON.stringify({
     },
     {
       "@type": "Article",
-      "headline": "About",
+      "headline": "mahanaの想い - 腸律セラピーを通じた癒しの提供",
       "author": {
         "@type": "Person",
         "name": "澤出 由香莉",
@@ -157,8 +156,7 @@ const jsonLd = JSON.stringify({
         "addressRegion": "埼玉県",
         "country": "日本"
       },
-      "telephone": "+81-123-456-7890",
-      "url": "https://www.mahana.example/access",
+      "url": "https://mahana-organic.com/#access",
       "image": "/assets/images/global/pic-access-pc@2x.webp",
       "openingHours": "火曜日 9:30-16:30, 木曜日 9:30-16:30, 土曜日 9:30-16:30"
     },
@@ -173,12 +171,6 @@ const jsonLd = JSON.stringify({
         "/assets/images/concept/pic-concept-thumbnail04@2x.webp",
         "/assets/images/concept/pic-concept-thumbnail05@2x.webp"
       ]
-    },
-    {
-      "@type": "VideoObject",
-      "name": "サロン紹介",
-      "description": "mahanaサロンの紹介ビデオです。",
-      "contentUrl": "https://www.mahana.example/video"
     }
   ]
 });

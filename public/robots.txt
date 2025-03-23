@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mahana-organic.com/sitemap-index.xml

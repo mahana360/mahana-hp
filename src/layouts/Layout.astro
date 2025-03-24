@@ -23,11 +23,6 @@ const {
     <title>埼玉県羽生市の腸律セラピー・アロマ・よもぎ蒸し｜mahana｜{subTitle}</title>
     <meta name="description" content={description}>
 
-    {Astro.url.pathname === '/' && (
-      <!-- Google Search Console -->
-      <meta name="google-site-verification" content="あなたのコード">
-    )}
-
     { noIndex && <meta name="robots" content="noindex, nofollow"> }
 
     <!-- favicon -->
@@ -64,6 +59,9 @@ const {
     {jsonLd && (
       <script type="application/ld+json" set:html={jsonLd}></script>
     )}
+
+    <!-- サーチコンソール種有権の確認 -->
+    <meta name="google-site-verification" content="CsW8QqlF62NmhIoNC2vMyIvADKBR8V980XbCT3WV5EI" />
   </head>
 
   <body>

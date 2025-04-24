@@ -50,7 +50,7 @@ function convertImagesToWebP(htmlContent: string) {
 
 // 記事本文をサニタイズし、画像をWebPに変換
 const cleanContent = sanitizeHtml(convertImagesToWebP(blog.main_text), {
-  allowedTags: [ 'b', 'i', 'em', 'strong', 'a', 'p', 'h1', 'h2', 'h3', 'ul', 'ol', 'li', 'br', 'img' ],
+  allowedTags: [ 'b', 'i', 'em', 'strong', 'a', 'p', 'h2', 'h3', 'ul', 'ol', 'li', 'br', 'img' ],
   allowedAttributes: {
     '*': ['class', 'style'],
     'a': ['href', 'target'],
@@ -127,6 +127,28 @@ const metaDescription = cleanText.length > 150 ? cleanText.substring(0, 150) + "
                     />
                   </div>
                   <h2 class="c-single-card-title">{prevBlog.title}</h2>
+                </div>
+              </div>
+            </a>
+          </li>
+        )}
+        {nextBlog && (
+          <li class="single-pagination-item single-pagination-item--right">
+            <a href={`/blog/${nextBlog.id}`}>
+              <span class="single-pagination-text single-pagination-text--next">次の記事を見る</span>
+              <div class="single-pagination-card">
+                <div class="c-single-card">
+                  <div class="c-single-card-image">
+                    <img
+                      src={nextBlog.thumbnail ? `${nextBlog.thumbnail.url}?fm=webp` : "/assets/images/blog/default-thumbnail.webp"}
+                      alt={nextBlog.thumbnail_alt || "ブログのサムネイル画像"}
+                      loading="lazy"
+                      decoding="async"
+                      width="240"
+                      height="156"
+                    />
+                  </div>
+                  <h2 class="c-single-card-title">{nextBlog.title}</h2>
                 </div>
               </div>
             </a>
